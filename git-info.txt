@@ -1,0 +1,33 @@
+// Remote repository -> github/gitlab
+
+//Local repository ->  our project files in our workstation
+
+
+Staging area -> the files which are added after adding and before the commit message
+---------------------------------------------------------------------------
+Steps to follow for adding a repo to Remote
+
+git init -> Initialize git in project
+
+// Make changes to your file
+git add file_name -> Add files to staging area
+
+//After adding the files we add a commit message to let us know what we did
+git commit -m "Your message goes here" -> Add commit message
+
+//We add remote repository url to push our project to git stations (github/gitlab/bitbucket)
+//Origin is the shortcut for getting the url 
+git remote add origin url_for_remote_repo -> Adds the remote link to origin variable
+
+// To list all the remote repository's urls
+git remote -v 
+
+
+//To push the project to remote repository
+git push origin master -> master is the name of the branch that we want to pull to local 
+
+
+//To pull changes comitted in remote repository
+git pull origin master -> master is the name of the branch that we want to pull to local 
+
+
