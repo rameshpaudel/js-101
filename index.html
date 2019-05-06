@@ -12,5 +12,50 @@
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, in quo. Praesentium quaerat consequatur quis autem iusto debitis earum minus?</p>
     <a href="#">Visit Site</a>
     
+    <script>
+
+        //Variable 
+        //let, var, const
+
+        //Conditionals -> if / swich ->case
+
+        // Datatype
+
+
+        var no = 23;
+        var test = "string";
+
+        var personalInformation = {
+            name: "Test",
+            age: 23
+        }
+
+        var educationalInformation = {
+            passed: "HSEB",
+            percentage: 85,
+            nationalRank: 23,
+        }
+
+        var newObject = Object.assign(personalInformation, educationalInformation);
+
+        var obj = {
+            ...personalInformation,
+            ...educationalInformation
+        }
+
+        // for(key in obj){
+        //     console.log(key, ' |  And value is '+ obj[key])
+        // }
+
+
+        var names = ["Ram","Shyam","Hari","Rita"];
+
+        for(var i=0; i < names.length; i++){
+            console.log(names[i]);
+        }
+
+
+    
+    </script>
 </body>
 </html>

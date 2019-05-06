@@ -9,6 +9,13 @@
             .container {
                 transition: all 0.5s linear;
             }
+
+
+            .added{
+                background: #2f2f2f;
+                color: white;
+                padding:10px;
+            }
         </style>
     </head>
     <body>
@@ -39,9 +46,14 @@
         // Change color and bgColor when clicked
         function clickedOnBox(e){
             var clickedElement = e.srcElement;
-            clickedElement.style.backgroundColor = 'red';
-            clickedElement.style.color = 'white';
-            console.log(clickedElement.style);
+            // clickedElement.style.backgroundColor = 'red';
+            // clickedElement.style.color = 'white';
+
+
+            //clickedElement.classList -> classList gives us all the classes that are used in current element
+            clickedElement.classList.toggle("added")
+            // console.log("Classes ", clickedElement.classList)
+            // console.log(clickedElement.style);
         }
 
         //Loop through all the containers and change their background color
