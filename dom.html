@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>DOM Manipulations</title>
+        <style>
+            .container {
+                transition: all 0.5s linear;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Test this</h1>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi accusantium libero blanditiis explicabo adipisci soluta beatae id similique nulla aut.</p>
+            <button>Click Here</button>
+        </div>
+        <div class="container">
+                <h1>Another title</h1>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi accusantium libero blanditiis explicabo adipisci soluta beatae id similique nulla aut.</p>
+                <button>View this page</button>
+            </div>
+        <script>
+
+
+        //DOM -> Document Object Model
+        //----------------------------
+        
+        //Fetch the first element with the class of container
+        var container = document.querySelector(".container");
+
+        //Fetch all items matching the parameter 
+        var containers = document.querySelectorAll(".container");
+        
+        // containers.style.backgroundColor = "#ededed"
+
+        // Change color and bgColor when clicked
+        function clickedOnBox(e){
+            var clickedElement = e.srcElement;
+            clickedElement.style.backgroundColor = 'red';
+            clickedElement.style.color = 'white';
+            console.log(clickedElement.style);
+        }
+
+        //Loop through all the containers and change their background color
+        // And if it's clicked then change the color and background of clicked element
+        containers.forEach(function(value, index){
+            value.style.backgroundColor = "green"
+            value.onclick = clickedOnBox;
+        })
+        
+
+        
+        </script>
+    </body>
+</html>
