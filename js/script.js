@@ -83,3 +83,10 @@ mouseElement.onmouseleave = function(e){
     // e.target[0].inner
 }
 
+document.querySelector('a').onclick = function(e){
+    //preventDefault prevents from the element taking its default behaviour
+    e.preventDefault();
+    document.body.classList.toggle('bg-1');
+    
+}
+
