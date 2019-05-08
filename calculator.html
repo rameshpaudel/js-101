@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <title>Calculator</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
     <header>
         <h1>Calculator</h1>
@@ -19,27 +21,27 @@
             <button class="action" data-key="cancel">AC</button>
             <button class="action" data-key="save">MR</button>
             <button class="action" data-key="clear">MC</button>
-            
+
         </div>
-        
+
         <div class="operators">
             <button class="operator" data-key="add">+</button>
             <button class="operator" data-key="substract">-</button>
             <button class="operator" data-key="multiply">*</button>
             <button class="operator" data-key="divide">/</button>
-            <button class="operator" data-key="equals">=</button>
+            <button class="equals" data-key="equals">=</button>
         </div>
-        
+
         <div class="key-buttons">
             <!--  -->
             <button data-key="0">0</button>
             <button data-key="1">1</button>
             <button data-key="2">2</button>
             <button data-key="3">3</button>
-        
+
         </div>
         <div class="key-buttons">
-        
+
             <button data-key="4">4</button>
             <button data-key="5">5</button>
             <button data-key="6">6</button>
@@ -50,42 +52,154 @@
             <button data-key="9">9</button>
         </div>
 
-        
+
     </div>
+    <script src="./js/arithmetic.js"></script>
     <script>
-    //Fetch all opreators from the dom
-    var operators = document.querySelectorAll('.operator');
-    //Fetch all the numbers from the dom
-    var keys = document.querySelectorAll('.key-buttons button');
-    //Fetch all the calculator actions from the dom
-    var actions = document.querySelectorAll('.action');
+        //Fetch all opreators from the dom
+        var operators = document.querySelectorAll('.operator');
+        //Fetch all the numbers from the dom
+        var keys = document.querySelectorAll('.key-buttons button');
+        //Fetch all the calculator actions from the dom
+        var actions = document.querySelectorAll('.action');
+
+        //We need 3 types of variable to calculate
+        // new value is the first number ; after the operator is pressed
+        // the new value is then transferred to the old value  
 
 
-    //Show clicked number on output
+        var oldValue = null;
+        var newValue = null;
+        var result = null;
+        var currentOperator = null;
+        //===================================================
 
-    function clickedOnOperator(){
+        // 1 -> pressed value
+        // 2-> previous Value
+        //===================================================
 
-    }
-    //Outputs the data to the dom
-    function outputData(data){
-        document.querySelector('.output span').innerText = data;
-    }
-    function outputClickedNumber(e){
-        //e -> event
-        var clickedElement = e.srcElement; 
-        var value = clickedElement.getAttribute('data-key');
-        var parsedValue = Number(value);
-        if(!isNaN(parsedValue)){
-            console.log(parsedValue);
+        //Show clicked number on output
+
+
+        // steps:
+        // 1) Click on num
+        // 2) Click on operator
+        // 3) Click on num
+        // 4) Result
+        function clickedOnOperator(e) {
+            if(!newValue){
+                alert("New value not found. Please select a number before carrying out the operation")
+                return;
+            }
+
+            var clickedElement = e.srcElement;
+            
+            //Geting the type of operator from the element
+            if(!clickedElement){
+                
+                return
+            }
+            var value = clickedElement.getAttribute('data-key');
+            
+            //Change the new value to old one becaue the operator is pressed
+            oldValue = newValue
+            
+            
+            //Clearing out the new value to give space for new number
+
+            newValue = null
+
+            //Assigning current operator to the clicked operator
+            currentOperator = value;
         }
 
-    }
 
-    for(var i = 0; i < keys.length; i++){
-        keys[i].onclick = outputClickedNumber
-    }
+        ///Operator on the operators
 
-    
+        function actOnOperator(operator){
+            switch (operator) {
+                case 'add':
+                    return add(oldValue,newValue)
+                    break;
+                case 'substract':
+                    return substract(oldValue,newValue)
+                    break;
+                case 'multiply':
+                    return multiply(oldValue,newValue)
+                    break;
+                case 'divide':
+                    return divide(oldValue,newValue)
+                    break;
+                case 'equals':
+                alert("helo")
+                    console.log('values',oldValue,newValue)                    
+                    return outputData(oldValue);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+
+        //When clicked on equals to
+        document.querySelector('.equals').onclick = function(){
+            newValue = actOnOperator(currentOperator)
+            
+            outputData(newValue)
+        }
+
+
+
+        //Outputs the data to the dom
+        function outputData(data) {
+            document.querySelector('.output span').innerText = data;
+        }
+
+
+        function outputClickedNumber(e) {
+            //e -> event
+            var clickedElement = e.srcElement;
+            var value = clickedElement.getAttribute('data-key');
+            var parsedValue = Number(value);
+            
+           
+            //Check if the new value already has some data in it
+
+            if (newValue) {
+                //If the new value has data then append the clicked data
+                parsedValue = Number(`${newValue}${parsedValue}`);
+            }
+
+
+            if (!isNaN(parsedValue)) {
+                //Output the data to the dom
+                outputData(parsedValue)
+
+                //Assign the parsed value to new value
+                newValue = parsedValue
+            }
+
+        }
+
+        function addEventToKeys() {
+            //Addding click actions to all the numbered keys
+            for (var i = 0; i < keys.length; i++) {
+                keys[i].onclick = outputClickedNumber
+            }
+        }
+
+        function addEventToOperators() {
+            //Adding click event to all the operators
+            for (var i = 0; i < operators.length; i++) {
+                operators[i].onclick = clickedOnOperator
+            }
+        }
+
+
+        addEventToKeys();
+        addEventToOperators();
     </script>
 </body>
+
 </html>
