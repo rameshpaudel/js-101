@@ -12,6 +12,9 @@
         height: 200px;
         background: #ededed;
     }
+    body{
+        transition: all 0.5s linear;
+    }
 
     .bg-1{
         background: #2f2f2f;
@@ -56,6 +59,39 @@
 
     </div>
     <script src="js/script.js"></script>
+    <script>
+    for(var i = 0; i < 20; i++){
+        let container = document.querySelector('.container');
+        document.body.innerHTML += container.innerHTML
+    }
+
+
+    //==============Adds event to the scroll
+    document.body.onscroll = function(e){
+        var scrollHeight = e.srcElement.scrollingElement.scrollTop;
     
+        console.log(scrollHeight)
+        if(scrollHeight < 1000 && scrollHeight > 500){
+
+            document.body.style.backgroundColor = '#ededed'
+            document.body.style.color = "#2f2f2f"
+
+
+        } else if(scrollHeight > 1000 && scrollHeight < 2000){
+
+            document.body.style.backgroundColor = "#ccc"
+            document.body.style.color = "#2f2f2f"
+
+        } else if(scrollHeight > 2000 && scrollHeight < 3000){
+
+            document.body.style.backgroundColor = "#000"
+            document.body.style.color = "#fff"
+            
+        } else{
+            document.body.style.backgroundColor = "#fff"
+            document.body.style.color = "#000"
+        }
+    }
+    </script>
 </body>
 </html>
