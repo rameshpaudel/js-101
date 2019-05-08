@@ -1,0 +1,45 @@
+
+
+        .container{
+            width:50%;
+            margin:0 auto;
+        }
+        .output{
+            height:100px;
+            border:1px solid gray;
+        }
+        .operator,.key-buttons button, .action{
+            padding:10px;
+            width:100%;
+            background: #ededed;
+            border-color: #ccc;
+            transition:all 0.5s linear;
+            border-width:1px;
+
+        }
+
+        .operator:hover,.key-buttons button:hover,.actions button:hover{
+            background: #2f2f2f;
+            border-color: #ededed;
+            color: white;
+
+        }
+        .operators,.key-buttons, .actions{
+            display: flex;
+            justify-content: space-between;
+            margin:0
+        }
+
+        .output{
+            display: flex;
+            justify-content: flex-end;
+            align-items:flex-end;
+            padding-bottom: 10px;
+            padding-right: 10px;
+        }
+
+        header h1{
+            text-align: center;
+            padding-bottom: 1.2rem;
+        }
+    

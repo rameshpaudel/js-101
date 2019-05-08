@@ -36,9 +36,14 @@ document.body.oncontextmenu = function(e){
 button.onclick = changeParentsBackground;
 secondButton.onclick = changeParentsBackground;
 
-button.ondblclick = function(e){
+
+function doubleClick(e){
     console.log('Double clicked')
 }
+button.ondblclick = doubleClick
+button.addEventListener('dblclick', doubleClick)
+// button.addEventListener('click', doubleClick)
+
 
 textInput.onkeypress = function(e){
     console.log(e)

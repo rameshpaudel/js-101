@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Calculator</h1>
+    </header>
+    <div class="container">
+        <div class="output">
+            <span>Input your data here</span>
+        </div>
+        <div class="actions">
+            <button class="action" data-key="cancel">AC</button>
+            <button class="action" data-key="save">MR</button>
+            <button class="action" data-key="clear">MC</button>
+            
+        </div>
+        
+        <div class="operators">
+            <button class="operator" data-key="add">+</button>
+            <button class="operator" data-key="substract">-</button>
+            <button class="operator" data-key="multiply">*</button>
+            <button class="operator" data-key="divide">/</button>
+            <button class="operator" data-key="equals">=</button>
+        </div>
+        
+        <div class="key-buttons">
+            <!--  -->
+            <button data-key="0">0</button>
+            <button data-key="1">1</button>
+            <button data-key="2">2</button>
+            <button data-key="3">3</button>
+        
+        </div>
+        <div class="key-buttons">
+        
+            <button data-key="4">4</button>
+            <button data-key="5">5</button>
+            <button data-key="6">6</button>
+            <button data-key="7">7</button>
+        </div>
+        <div class="key-buttons">
+            <button data-key="8">8</button>
+            <button data-key="9">9</button>
+        </div>
+
+        
+    </div>
+    <script>
+    //Fetch all opreators from the dom
+    var operators = document.querySelectorAll('.operator');
+    //Fetch all the numbers from the dom
+    var keys = document.querySelectorAll('.key-buttons button');
+    //Fetch all the calculator actions from the dom
+    var actions = document.querySelectorAll('.action');
+
+
+    //Show clicked number on output
+
+    function clickedOnOperator(){
+
+    }
+    //Outputs the data to the dom
+    function outputData(data){
+        document.querySelector('.output span').innerText = data;
+    }
+    function outputClickedNumber(e){
+        //e -> event
+        var clickedElement = e.srcElement; 
+        var value = clickedElement.getAttribute('data-key');
+        var parsedValue = Number(value);
+        if(!isNaN(parsedValue)){
+            console.log(parsedValue);
+        }
+
+    }
+
+    for(var i = 0; i < keys.length; i++){
+        keys[i].onclick = outputClickedNumber
+    }
+
+    
+    </script>
+</body>
+</html>
