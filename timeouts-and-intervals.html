@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>To Do Application</title>
+    
+</head>
+<body>
+    <h1>Hello World</h1>
+    <script>
+        //To run any specific functionality after certain time
+        setTimeout(()=>{
+            console.log('Hello World after 2 sec')
+        }, 2000)
+
+        //To run code in certain interval of time
+        var outputToConsole = () => {
+            console.log('Its been running ')
+        };
+
+        var interval = setInterval(outputToConsole,1000)
+
+        var clearAfter = function(){
+            //Halt the code thats been running
+            clearInterval(interval)
+        }
+
+
+        setTimeout(clearAfter, 10000)
+
+        
+
+        
+
+    </script>
+</body>
+</html>

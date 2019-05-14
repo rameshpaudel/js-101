@@ -25,7 +25,7 @@
         </div>
 
         <div class="operators">
-            <button class="operator" data-key="add">+</button>
+            <button class="operator" data-key="add">Add</button>
             <button class="operator" data-key="substract">-</button>
             <button class="operator" data-key="multiply">*</button>
             <button class="operator" data-key="divide">/</button>
@@ -34,7 +34,7 @@
 
         <div class="key-buttons">
             <!--  -->
-            <button data-key="0">0</button>
+            <button data-key="0">Zero</button>
             <button data-key="1">1</button>
             <button data-key="2">2</button>
             <button data-key="3">3</button>
@@ -63,14 +63,14 @@
         //Fetch all the calculator actions from the dom
         var actions = document.querySelectorAll('.action');
 
-        //We need 3 types of variable to calculate
+        // We need 3 types of variable to calculate
         // new value is the first number ; after the operator is pressed
         // the new value is then transferred to the old value  
 
 
         var oldValue = null;
         var newValue = null;
-        var result = null;
+        
         var currentOperator = null;
         //===================================================
 
@@ -79,13 +79,6 @@
         //===================================================
 
         //Show clicked number on output
-
-
-        // steps:
-        // 1) Click on num
-        // 2) Click on operator
-        // 3) Click on num
-        // 4) Result
         function clickedOnOperator(e) {
             if(!newValue){
                 alert("New value not found. Please select a number before carrying out the operation")
@@ -130,11 +123,6 @@
                 case 'divide':
                     return divide(oldValue,newValue)
                     break;
-                case 'equals':
-                alert("helo")
-                    console.log('values',oldValue,newValue)                    
-                    return outputData(oldValue);
-                    break;
                 default:
                     break;
             }
@@ -163,6 +151,7 @@
             var value = clickedElement.getAttribute('data-key');
             var parsedValue = Number(value);
             
+            parseInt(x)
            
             //Check if the new value already has some data in it
 

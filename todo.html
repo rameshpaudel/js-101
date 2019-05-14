@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>To Do Application</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .header-container{
+            padding: 40px 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container header-container">
+        <div class="row">
+            <div class="col-md-4 offset-md-2">
+                <h1 class="text-center" onclick="runthis()">To Do</h1>
+                <p>current time: <span id="current-time"></span></p>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-primary" id="add">Add to Do</button>
+                <button class="btn btn-primary">Hide Completed</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col offset-md-2">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Item</th>
+                            <th>Created At</th>
+                            <th>Status</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <!-- TO do list items wil be placed here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+    <script>
+    
+        var task = document.querySelector(".todo-item");
+        var tableBody = document.querySelector('tbody');
+
+
+        //Remove the parent of the button that was clicked
+        function deleteAction(e){
+            e.srcElement.parentElement.parentElement.remove()
+        }
+
+        function generateTodo(sn,title,date,status){
+            //JS allows the user to pass any number of args so we check if the sn is present
+            if(typeof sn === 'undefined'){
+                throw Error("There must be a serial number to run this behaviour")   
+            }
+            var tableRow = document.createElement('tr');
+            
+            var snDes = document.createElement('td');
+            snDes.innerText = sn;
+
+            var titleRow = document.createElement('td');
+            titleRow.innerText = title;
+
+            var dateRow = document.createElement('td');
+            dateRow.innerText = date;
+
+            var statusRow = document.createElement('td');
+            statusRow.innerText = status;
+
+            var options = document.createElement('td');
+
+            var optionDelete = document.createElement('button');
+            optionDelete.innerText = "Delete"
+            
+            //Adding event to the button 
+            optionDelete.addEventListener('click', deleteAction)
+            //Appending buttons to the table
+            options.append(optionDelete);
+
+            tableRow.append(snDes, titleRow, dateRow, statusRow, options)
+            
+            return tableRow;
+            
+        }
+
+        function addToList(sn,title,date,status){
+            var generatedData = generateTodo(sn,title,date,status)
+            tableBody.append(generatedData)
+        }
+
+        document.querySelector('#add').addEventListener('click', ()=>{
+            var response = prompt("Enter your todo item");
+            addToList(1, response, Date(), 'Incomplete')
+        })
+        
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dom Elements</title>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Generating dynamic dom elements via js</h1>
+        <input type="text" name="text" id="input" placeholder="Enter your name here">
+        <button type="submit">Submit</button>
+        <div class="output">
+
+        </div>
+    </div>
+
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+    <script>
+        var textInput = document.querySelector('input[type="text"]')
+        var button  = document.querySelector('button');
+        var displayField = document.querySelector('.output');
+       //Creating Elements
+
+        var appendData = function(e){
+            console.log(e);
+            var inputValue = textInput.value;
+            textInput.value = ''
+            //Create div 
+            var element = document.createElement('div');
+            element.classList.add('container');
+            //Create paragraph
+            var paragraph = document.createElement('p');
+            paragraph.innerText = inputValue;
+            
+            //Append paragraph to element
+            element.append(paragraph);
+            //Display
+            displayField.insertAdjacentElement("beforebegin",element)
+        }
+       button.addEventListener('click',appendData)
+    
+
+
+    
+    </script>
+
+
+</body>
+</html>
