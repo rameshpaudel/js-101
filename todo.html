@@ -90,6 +90,17 @@
             }
         }
 
+        var toggleCompletion = function(element){
+            var text = element.innerText;
+            //Getting the value of the text and toggling hide
+            if(text.trim().toLowerCase() === "incomplete"){
+                element.innerText = "Complete "
+                console.log(element.parentElement.parentElement)
+            } else {
+                element.innerText = "Incomplete"
+            }
+        }
+
             
 
         toggleStatusElement.addEventListener('click',(e)=>{
@@ -102,7 +113,10 @@
         function toggleTask(e){
             console.log(e);
             e.srcElement.parentElement.parentElement.classList.toggle('hide')
+            //Toggle complete || incomplete
+            toggleCompletion(e.srcElement)
         }
+
         //Remove the parent of the button that was clicked
         function deleteAction(e){
             e.srcElement.parentElement.parentElement.remove()
@@ -165,8 +179,7 @@
                 var lastNumber = parseInt(tableBody.lastElementChild.children[0].innerText);
                 initialNumber = lastNumber + 1;
             }
-            // var sn = tableBody.lastElementChild.children[0].innerText;
-            // console.log(sn);
+            //Adding to the list
             addToList(initialNumber, response, Date(), 'Incomplete')
         }
 
