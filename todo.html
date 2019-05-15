@@ -10,6 +10,13 @@
         .header-container{
             padding: 40px 0;
         }
+        tbody.visible-all .hide{
+            display: table-row;
+        }
+
+        .hide{
+            display: none;
+        }
 
     </style>
 </head>
@@ -17,12 +24,12 @@
     <div class="container header-container">
         <div class="row">
             <div class="col-md-4 offset-md-2">
-                <h1 class="text-center" onclick="runthis()">To Do</h1>
-                <p>current time: <span id="current-time"></span></p>
+                <h1 class="text-center">To Do</h1>
             </div>
             <div class="col-md-6">
                 <button class="btn btn-primary" id="add">Add to Do</button>
-                <button class="btn btn-primary">Hide Completed</button>
+                <button class="btn btn-primary" id="toggle-status">Show Completed</button>
+                <button class="btn btn-primary" id="dummy-btn">Show World</button>
             </div>
 
         </div>
@@ -43,6 +50,22 @@
                     </thead>
                     <tbody>
                       <!-- TO do list items wil be placed here -->
+                     
+
+                        <!-- <tr>
+                            <td>1</td>
+                            <td>test this</td>
+                            <td>Wed May 15 2019 13:53:02 GMT+0545 (Nepal Time)</td>
+                            <td>Incomplete</td>
+                            <td>
+                                <button class="btn btn-primary" onclick="toggleTask(this)">Completed</button>
+                                <button class="btn btn-danger" onclick="deleteAction(this)">Delete</button></td>
+                        </tr>
+                         -->
+
+
+
+
                     </tbody>
                 </table>
             </div>
@@ -54,7 +77,32 @@
         var task = document.querySelector(".todo-item");
         var tableBody = document.querySelector('tbody');
 
+        var toggleStatusElement = document.querySelector('#toggle-status')
 
+        var toggleStatus = function(element){
+            var text = element.innerText;
+            var textList = text.split(" ");
+            //Getting the value of the text and toggling hide
+            if(textList[0].toLowerCase() === "show"){
+                element.innerText = "Hide "+ textList[1]
+            } else {
+                element.innerText = "Show "+ textList[1]
+            }
+        }
+
+            
+
+        toggleStatusElement.addEventListener('click',(e)=>{
+            var clickedElement = e.srcElement;
+            toggleStatus(clickedElement);
+            tableBody.classList.toggle('visible-all');
+        })
+
+        
+        function toggleTask(e){
+            console.log(e);
+            e.srcElement.parentElement.parentElement.classList.toggle('hide')
+        }
         //Remove the parent of the button that was clicked
         function deleteAction(e){
             e.srcElement.parentElement.parentElement.remove()
@@ -81,13 +129,21 @@
 
             var options = document.createElement('td');
 
+            var optionStatus = document.createElement('button');
+            optionStatus.innerText = "Completed"
+            optionStatus.classList.add('btn','btn-primary');
+            
+            optionStatus.addEventListener('click', toggleTask)
+
             var optionDelete = document.createElement('button');
             optionDelete.innerText = "Delete"
+            optionDelete.classList.add('btn','btn-danger');
             
             //Adding event to the button 
             optionDelete.addEventListener('click', deleteAction)
             //Appending buttons to the table
-            options.append(optionDelete);
+            
+            options.append(optionStatus,optionDelete);
 
             tableRow.append(snDes, titleRow, dateRow, statusRow, options)
             
@@ -100,10 +156,21 @@
             tableBody.append(generatedData)
         }
 
-        document.querySelector('#add').addEventListener('click', ()=>{
+        var askUserAndOutput = ()=>{
             var response = prompt("Enter your todo item");
-            addToList(1, response, Date(), 'Incomplete')
-        })
+            var initialNumber = 0;
+
+            if(tableBody.lastElementChild){
+                //parsing last sn field from the table
+                var lastNumber = parseInt(tableBody.lastElementChild.children[0].innerText);
+                initialNumber = lastNumber + 1;
+            }
+            // var sn = tableBody.lastElementChild.children[0].innerText;
+            // console.log(sn);
+            addToList(initialNumber, response, Date(), 'Incomplete')
+        }
+
+        document.querySelector('#add').addEventListener('click',askUserAndOutput)
         
 
     </script>
