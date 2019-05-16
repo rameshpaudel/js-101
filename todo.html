@@ -12,6 +12,8 @@
         }
         tbody.visible-all .hide{
             display: table-row;
+            background: #000;
+            color: white;
         }
 
         .hide{
@@ -29,7 +31,6 @@
             <div class="col-md-6">
                 <button class="btn btn-primary" id="add">Add to Do</button>
                 <button class="btn btn-primary" id="toggle-status">Show Completed</button>
-                <button class="btn btn-primary" id="dummy-btn">Show World</button>
             </div>
 
         </div>
@@ -51,141 +52,12 @@
                     <tbody>
                       <!-- TO do list items wil be placed here -->
                      
-
-                        <!-- <tr>
-                            <td>1</td>
-                            <td>test this</td>
-                            <td>Wed May 15 2019 13:53:02 GMT+0545 (Nepal Time)</td>
-                            <td>Incomplete</td>
-                            <td>
-                                <button class="btn btn-primary" onclick="toggleTask(this)">Completed</button>
-                                <button class="btn btn-danger" onclick="deleteAction(this)">Delete</button></td>
-                        </tr>
-                         -->
-
-
-
-
                     </tbody>
                 </table>
             </div>
         </div>
         
     </div>
-    <script>
-    
-        var task = document.querySelector(".todo-item");
-        var tableBody = document.querySelector('tbody');
-
-        var toggleStatusElement = document.querySelector('#toggle-status')
-
-        var toggleStatus = function(element){
-            var text = element.innerText;
-            var textList = text.split(" ");
-            //Getting the value of the text and toggling hide
-            if(textList[0].toLowerCase() === "show"){
-                element.innerText = "Hide "+ textList[1]
-            } else {
-                element.innerText = "Show "+ textList[1]
-            }
-        }
-
-        var toggleCompletion = function(element){
-            var text = element.innerText;
-            //Getting the value of the text and toggling hide
-            if(text.trim().toLowerCase() === "incomplete"){
-                element.innerText = "Complete "
-                console.log(element.parentElement.parentElement)
-            } else {
-                element.innerText = "Incomplete"
-            }
-        }
-
-            
-
-        toggleStatusElement.addEventListener('click',(e)=>{
-            var clickedElement = e.srcElement;
-            toggleStatus(clickedElement);
-            tableBody.classList.toggle('visible-all');
-        })
-
-        
-        function toggleTask(e){
-            console.log(e);
-            e.srcElement.parentElement.parentElement.classList.toggle('hide')
-            //Toggle complete || incomplete
-            toggleCompletion(e.srcElement)
-        }
-
-        //Remove the parent of the button that was clicked
-        function deleteAction(e){
-            e.srcElement.parentElement.parentElement.remove()
-        }
-
-        function generateTodo(sn,title,date,status){
-            //JS allows the user to pass any number of args so we check if the sn is present
-            if(typeof sn === 'undefined'){
-                throw Error("There must be a serial number to run this behaviour")   
-            }
-            var tableRow = document.createElement('tr');
-            
-            var snDes = document.createElement('td');
-            snDes.innerText = sn;
-
-            var titleRow = document.createElement('td');
-            titleRow.innerText = title;
-
-            var dateRow = document.createElement('td');
-            dateRow.innerText = date;
-
-            var statusRow = document.createElement('td');
-            statusRow.innerText = status;
-
-            var options = document.createElement('td');
-
-            var optionStatus = document.createElement('button');
-            optionStatus.innerText = "Completed"
-            optionStatus.classList.add('btn','btn-primary');
-            
-            optionStatus.addEventListener('click', toggleTask)
-
-            var optionDelete = document.createElement('button');
-            optionDelete.innerText = "Delete"
-            optionDelete.classList.add('btn','btn-danger');
-            
-            //Adding event to the button 
-            optionDelete.addEventListener('click', deleteAction)
-            //Appending buttons to the table
-            
-            options.append(optionStatus,optionDelete);
-
-            tableRow.append(snDes, titleRow, dateRow, statusRow, options)
-            
-            return tableRow;
-            
-        }
-
-        function addToList(sn,title,date,status){
-            var generatedData = generateTodo(sn,title,date,status)
-            tableBody.append(generatedData)
-        }
-
-        var askUserAndOutput = ()=>{
-            var response = prompt("Enter your todo item");
-            var initialNumber = 0;
-
-            if(tableBody.lastElementChild){
-                //parsing last sn field from the table
-                var lastNumber = parseInt(tableBody.lastElementChild.children[0].innerText);
-                initialNumber = lastNumber + 1;
-            }
-            //Adding to the list
-            addToList(initialNumber, response, Date(), 'Incomplete')
-        }
-
-        document.querySelector('#add').addEventListener('click',askUserAndOutput)
-        
-
-    </script>
+   <script src="js/todo.js"></script>
 </body>
 </html>
