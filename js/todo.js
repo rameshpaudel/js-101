@@ -125,6 +125,7 @@ var askUserAndOutput = () => {
 
 
     //Adding to the list
+    localStorage.setItem('todo'+initialNumber, `{ title: ${response}, createdAt: ${formattedCurrentDate()}, status: "Incomplete"}`)
     addToList(initialNumber, response, formattedCurrentDate(), 'Incomplete')
 }
 
