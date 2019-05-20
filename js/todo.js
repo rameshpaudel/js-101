@@ -2,6 +2,24 @@ var task = document.querySelector(".todo-item");
 var tableBody = document.querySelector('tbody');
 var toggleStatusElement = document.querySelector('#toggle-status')
 
+
+var savedData =  [];
+
+
+var localData = localStorage.getItem('todo');
+
+if(localData){
+    localData = localData.split(",");
+    for(var i = 0; i < localData.length; i++){
+        tableBody.innerHTML += localData[i]
+    }
+}
+
+
+document.querySelector("#clear-status").addEventListener('click',()=>{
+    localStorage.clear();
+})
+
 var toggleStatus = function (element) {
     var text = element.innerText;
     var textList = text.split(" ");
@@ -31,15 +49,53 @@ var toggleCompletion = function (element) {
 
 //Change the task status -> show or hide
 var toggleTask = function (e) {
-    // console.log(e);
-    e.srcElement.parentElement.parentElement.classList.toggle('hide')
-    //Toggle complete || incomplete
-    toggleCompletion(e.srcElement)
+    
+    var pos = null;
+    //Listen to this when clicked via addEventListner
+    if(e.srcElement){
+        e.srcElement.parentElement.parentElement.classList.toggle('hide')
+        //Toggle complete || incomplete
+        toggleCompletion(e.srcElement)
+    }else{
+        //Listen to this when clicked via attribute with this injected in the function
+        
+        e.parentElement.parentElement.classList.toggle('hide')
+
+
+
+        if(Array.isArray(localData)){
+            localData[pos] = e.parentElement.parentElement.outerHTML
+            localStorage.setItem('todo',localData)
+        }
+    }
+}
+
+var checkIfPresentInLocalStorage = (localData, element)=>{
+    if(Array.isArray(localData)){
+        pos = localData.indexOf(element.outerHTML)
+        delete localData[pos];
+    }
 }
 
 //Remove the parent of the button that was clicked
 var deleteAction = function (e) {
-    e.srcElement.parentElement.parentElement.remove()
+    console.log(e)
+    if(e.srcElement){
+        e.srcElement.parentElement.parentElement.remove()
+        deleteItemFromLocalStorage(localData,e.srcElement.parentElement.parentElement)
+    }else{
+        var findData = e.parentElement.parentElement;
+        deleteItemFromLocalStorage(localData,findData)
+        findData.remove()
+    }
+}
+
+var deleteItemFromLocalStorage = (localData,findData)=>{
+    if(Array.isArray(localData)){
+        var pos = localData.indexOf(findData.outerHTML)
+        localData.splice(pos,1);
+        localStorage.setItem('todo', localData)
+    }
 }
 
 //Generate todo element to add inside the table body
@@ -68,14 +124,18 @@ var generateTodo = function (sn, title, date, status) {
     optionStatus.innerText = "Complete"
     optionStatus.classList.add('btn', 'btn-primary');
 
-    optionStatus.addEventListener('click', toggleTask)
+    optionStatus.setAttribute('onclick', "toggleTask(this)")
+
+    
+    // optionStatus.addEventListener('click', toggleTask)
 
     var optionDelete = document.createElement('button');
     optionDelete.innerText = "Delete"
     optionDelete.classList.add('btn', 'btn-danger');
 
+    optionDelete.setAttribute('onclick', "deleteAction(this)")
     //Adding event to the button 
-    optionDelete.addEventListener('click', deleteAction)
+    // optionDelete.addEventListener('click', deleteAction)
     //Appending buttons to the table
 
     options.append(optionStatus, optionDelete);
@@ -89,6 +149,10 @@ var generateTodo = function (sn, title, date, status) {
 //Add the item to the table body
 var addToList = function (sn, title, date, status) {
     var generatedData = generateTodo(sn, title, date, status)
+    //Adding items to localStorage
+    savedData.push(generatedData.outerHTML);
+    localStorage.setItem("todo",savedData)
+
     tableBody.append(generatedData)
 }
 
@@ -125,7 +189,7 @@ var askUserAndOutput = () => {
 
 
     //Adding to the list
-    localStorage.setItem('todo'+initialNumber, `{ title: ${response}, createdAt: ${formattedCurrentDate()}, status: "Incomplete"}`)
+    // localStorage.setItem('todo', `{ title: ${response}, createdAt: ${formattedCurrentDate()}, status: "Incomplete"}`)
     addToList(initialNumber, response, formattedCurrentDate(), 'Incomplete')
 }
 
@@ -145,15 +209,12 @@ document.querySelector('#add').addEventListener('click', askUserAndOutput)
 toggleStatusElement.addEventListener('click', toggleAllTasks)
 
 
-// var counter = 5;
 
-// function testThis(){
-// 	if(counter < 10){
-//     counter = counter + 1;
-//     setTimeout(()=>{
+//Adding items to the localstorage
+// ================================
 
-//         console.log(counter)
-//     }, counter * 100)
-// 	testThis()
-//     }
-// }
+// localStorage.setItem("key","value")
+// localStorage.getItem("key")
+// localStorage.clear()
+
+

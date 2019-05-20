@@ -1,0 +1,15 @@
+//Check if the data is present in localstorage  ===> Display in document 
+
+//When adding =>add to localstorage
+
+
+
+//When we click the task completed button 
+    ==> check if the task is present in localstorage if it is present 
+                    ==> Remove the old task in localstorage and replace it with new code with added classes
+    
+
+//When we click the task delete button 
+    ==> check if the task is present in localstorage if it is present delete the task 
+
+    
