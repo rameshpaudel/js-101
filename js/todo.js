@@ -5,7 +5,6 @@ var toggleStatusElement = document.querySelector('#toggle-status')
 
 var savedData =  [];
 
-
 var localData = localStorage.getItem('todo');
 
 if(localData){
@@ -49,48 +48,53 @@ var toggleCompletion = function (element) {
 
 //Change the task status -> show or hide
 var toggleTask = function (e) {
-    
     var pos = null;
     //Listen to this when clicked via addEventListner
     if(e.srcElement){
+        removeItemFromRefArray(localData, e.parentElement.parentElement)
         e.srcElement.parentElement.parentElement.classList.toggle('hide')
         //Toggle complete || incomplete
         toggleCompletion(e.srcElement)
+
+        pushPositionToLocalStorage(localData,e.parentElement.parentElement)
     }else{
         //Listen to this when clicked via attribute with this injected in the function
         
+        removeItemFromRefArray(localData, e.parentElement.parentElement)
         e.parentElement.parentElement.classList.toggle('hide')
-
-
-
-        if(Array.isArray(localData)){
-            localData[pos] = e.parentElement.parentElement.outerHTML
-            localStorage.setItem('todo',localData)
-        }
+        pushPositionToLocalStorage(localData,e.parentElement.parentElement)
     }
 }
 
-var checkIfPresentInLocalStorage = (localData, element)=>{
+var removeItemFromRefArray = (localData,element)=>{
     if(Array.isArray(localData)){
         pos = localData.indexOf(element.outerHTML)
         delete localData[pos];
     }
 }
 
+var pushPositionToLocalStorage = (localData,element)=>{
+    if(Array.isArray(localData)){
+        localData[pos] = element.outerHTML
+        localStorage.setItem('todo',localData)
+    }
+}
 //Remove the parent of the button that was clicked
 var deleteAction = function (e) {
-    console.log(e)
+    
     if(e.srcElement){
         e.srcElement.parentElement.parentElement.remove()
-        deleteItemFromLocalStorage(localData,e.srcElement.parentElement.parentElement)
+        if(Array.isArray(localData)){
+            localData.indexOf(e.srcElement.parentElement.parentElement)
+        }
     }else{
         var findData = e.parentElement.parentElement;
-        deleteItemFromLocalStorage(localData,findData)
+        findAndReplaceToLocalStorage(localData,findData)
         findData.remove()
     }
 }
 
-var deleteItemFromLocalStorage = (localData,findData)=>{
+var findAndReplaceToLocalStorage = (localData, findData)=>{
     if(Array.isArray(localData)){
         var pos = localData.indexOf(findData.outerHTML)
         localData.splice(pos,1);
