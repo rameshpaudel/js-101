@@ -2,10 +2,11 @@ var task = document.querySelector(".todo-item");
 var tableBody = document.querySelector('tbody');
 var toggleStatusElement = document.querySelector('#toggle-status')
 
+const LOCALSTORAGEKEY = 'todo';
 
 var savedData =  [];
 
-var localData = localStorage.getItem('todo');
+var localData = localStorage.getItem(LOCALSTORAGEKEY);
 
 if(localData){
     localData = localData.split(",");
@@ -76,7 +77,7 @@ var removeItemFromRefArray = (localData,element)=>{
 var pushPositionToLocalStorage = (localData,element)=>{
     if(Array.isArray(localData)){
         localData[pos] = element.outerHTML
-        localStorage.setItem('todo',localData)
+        localStorage.setItem(LOCALSTORAGEKEY,localData)
     }
 }
 //Remove the parent of the button that was clicked
@@ -97,8 +98,10 @@ var deleteAction = function (e) {
 var findAndReplaceToLocalStorage = (localData, findData)=>{
     if(Array.isArray(localData)){
         var pos = localData.indexOf(findData.outerHTML)
+        //Deleting the specific task that was clicked
         localData.splice(pos,1);
-        localStorage.setItem('todo', localData)
+        //Storing the data to the localStorage
+        localStorage.setItem(LOCALSTORAGEKEY, localData)
     }
 }
 
@@ -193,7 +196,7 @@ var askUserAndOutput = () => {
 
 
     //Adding to the list
-    // localStorage.setItem('todo', `{ title: ${response}, createdAt: ${formattedCurrentDate()}, status: "Incomplete"}`)
+    // localStorage.setItem(LOCALSTORAGEKEY, `{ title: ${response}, createdAt: ${formattedCurrentDate()}, status: "Incomplete"}`)
     addToList(initialNumber, response, formattedCurrentDate(), 'Incomplete')
 }
 
