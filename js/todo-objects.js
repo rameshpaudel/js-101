@@ -13,9 +13,14 @@ function createTask(title, createdAt, status){
 
 
 class TaskList{
-    constructor()
+    constructor(lists)
     {
         this.lists = [];
+        //Check if an array is passed through the constructor
+        // and assign to lists if its present
+        if(lists && Array.isArray(lists)){
+            this.lists = lists;
+        }
     }
 
     addList(title, createdAt, status){
@@ -34,7 +39,12 @@ class TaskList{
 }
 
 
-var tList = new TaskList();
+var tList = new TaskList([
+    createTask("hello", Date(), true),
+    createTask("test", Date(), true)
+]);
+
+
 tList.addList("Go fishing", Date(), false)
 tList.addList("Go hunting", Date(), false)
 tList.addList("Get groceries", Date(), false)
