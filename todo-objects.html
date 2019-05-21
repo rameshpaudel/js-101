@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>To Do Application</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .header-container{
+            padding: 40px 0;
+        }
+        tbody.visible-all .hide{
+            display: table-row;
+            background: #000;
+            color: white;
+        }
+
+        .hide{
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container header-container">
+        <div class="row">
+            <div class="col-md-4 offset-md-2">
+                <h1 class="text-center">To Do</h1>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-primary" id="add">Add to Do</button>
+                <button class="btn btn-primary" id="toggle-status">Show Completed</button>
+                <button class="btn btn-primary" id="clear-status">Clear Saved List</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col offset-md-2">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Item</th>
+                            <th>Created At</th>
+                            <th>Status</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <!-- TO do list items wil be placed here -->
+                     
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+   <script src="js/todo-objects.js"></script>
+</body>
+</html>
