@@ -1,9 +1,5 @@
-// TOdo
-//Step 1
-    // Choosing the data format 
-
-
 const LOCALKEY = 'todo-obj'
+
 function createTask(title, createdAt, status){
     return {
         title,
@@ -24,6 +20,11 @@ class TaskList{
         }
     }
 
+    resetList(){
+        this.lists = [];
+        //Regenerate once the data is reset
+        this.outputTask()
+    }
     addList(title, createdAt, status){
         var task = createTask(title, createdAt, status)
         this.lists.push(task);
@@ -115,29 +116,21 @@ class TaskList{
 }
 
 
+//Read the data in localstorage
+
+var localData = JSON.parse(localStorage.getItem(LOCALKEY));
+
 //Add items to DOM
-
-var tList = new TaskList(
-    // [
-    // createTask("hello", Date(), true),
-    // createTask("test", Date(), true)
-    //]
-);
-
-
-tList.addList("Go fishing", Date(), false)
-tList.addList("Go hunting", Date(), false)
-tList.addList("Get groceries", Date(), false)
-tList.addList("Travel to city", Date(), false)
-
-// tList.outputTask();
-
-
+var tList = new TaskList(localData);
+//Output data if items were found on localStorage
+if(localData){
+    tList.outputTask();
+}
 //----------------------------------------------------------------
+
 function addTask(){
     var askQuestion = prompt("Enter the task you want to complete")
-    console.log(askQuestion)
-
+    //Add the user's answer to the todo lists
     tList.addList(askQuestion, Date(), false)
 }
 
@@ -145,9 +138,9 @@ function addTask(){
 function toggleTask(position){
     tList.toggleStatus(position)
 }
+
 function removeTask(position){
     tList.removeList(position)
-    // e.parentElement.parentElement.remove()
 }
 
 
@@ -168,5 +161,16 @@ var toggleAllTasks = (e) => {
     toggleStatus(clickedElement);
     document.querySelector('tbody').classList.toggle('visible-all');
 }
+
+//Clear todo list from localstorage
+var clearList = (e)=>{
+    localStorage.clear();
+
+    //Repopulate the dom once the localStorage data is cleared
+    tList.resetList();
+}
+
+//Event Listeners
 document.querySelector("#toggle-status").addEventListener('click', toggleAllTasks)
 document.querySelector("#add").addEventListener('click', addTask)
+document.querySelector("#clear-status").addEventListener('click', clearList)
