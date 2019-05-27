@@ -66,6 +66,7 @@ class Quiz{
         var opt1 = document.createElement('input')
         opt1.setAttribute('type', 'radio');
         opt1.setAttribute('name', obj.id)
+        opt1.setAttribute('value', obj.options[position])
         
         label1.innerHTML = "&nbsp;&nbsp;" + obj.options[position];
         label1.append(opt1);
